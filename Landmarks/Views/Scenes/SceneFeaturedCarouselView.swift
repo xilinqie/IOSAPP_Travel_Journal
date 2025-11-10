@@ -34,25 +34,15 @@ struct SceneFeaturedItemView: View {
     var body: some View {
         NavigationLink(value: scene) {
             ZStack {
-                // Background - use associated landmark image if available
-                if let firstLandmarkId = scene.associatedLandmarkIds.first,
-                   let landmark = modelData.landmarksById[firstLandmarkId] {
-                    Image(decorative: landmark.backgroundImageName)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-                        .clipped()
-                } else {
-                    // Fallback gradient background
-                    LinearGradient(
-                        gradient: Gradient(colors: [
-                            scene.status.color.opacity(0.8),
-                            scene.status.color
-                        ]),
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                }
+                // Gradient background
+                LinearGradient(
+                    gradient: Gradient(colors: [
+                        scene.status.color.opacity(0.8),
+                        scene.status.color
+                    ]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
 
                 // Overlay content
                 VStack {

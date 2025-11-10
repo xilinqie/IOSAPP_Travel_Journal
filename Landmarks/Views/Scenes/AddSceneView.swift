@@ -24,7 +24,6 @@ struct AddSceneView: View {
     @State private var plannedDate = Date()
     @State private var visitNotes = ""
     @State private var notes = ""
-    @State private var selectedLandmarks: Set<Int> = []
 
     private let locationDB = LocationDatabase.shared
 
@@ -132,36 +131,6 @@ struct AddSceneView: View {
                     TextField("Your thoughts, tips, or plans...", text: $notes, axis: .vertical)
                         .lineLimit(4...8)
                 }
-
-                Section("Associated Landmarks (Optional)") {
-                    if modelData.landmarks.isEmpty {
-                        Text("No landmarks available")
-                            .foregroundStyle(.secondary)
-                    } else {
-                        ForEach(modelData.landmarks) { landmark in
-                            Toggle(isOn: Binding(
-                                get: { selectedLandmarks.contains(landmark.id) },
-                                set: { isSelected in
-                                    if isSelected {
-                                        selectedLandmarks.insert(landmark.id)
-                                    } else {
-                                        selectedLandmarks.remove(landmark.id)
-                                    }
-                                }
-                            )) {
-                                HStack {
-                                    Image(landmark.thumbnailImageName)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .frame(width: 40, height: 40)
-                                        .clipShape(RoundedRectangle(cornerRadius: 8))
-
-                                    Text(String(localized: landmark.name))
-                                }
-                            }
-                        }
-                    }
-                }
             }
             .navigationTitle(status == .visited ? "Add Visited Place" : "Add Dream Destination")
             .navigationBarTitleDisplayMode(.inline)
@@ -219,8 +188,7 @@ struct AddSceneView: View {
             status: status,
             visits: visits,
             plannedDate: finalPlannedDate,
-            notes: notes,
-            associatedLandmarkIds: Array(selectedLandmarks)
+            notes: notes
         )
 
         modelData.addTravelScene(scene)

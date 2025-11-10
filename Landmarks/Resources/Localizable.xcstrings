@@ -474,9 +474,6 @@
         }
       }
     },
-    "Associated Landmarks (Optional)" : {
-
-    },
     "Australia/Oceania" : {
       "comment" : "The name of a continent.",
       "localizations" : {
@@ -1119,12 +1116,6 @@
         }
       }
     },
-    "Landmarks to See" : {
-
-    },
-    "Landmarks Visited" : {
-
-    },
     "Last visited %@" : {
 
     },
@@ -1374,9 +1365,6 @@
       }
     },
     "New Set" : {
-
-    },
-    "No landmarks available" : {
 
     },
     "No photos yet" : {
@@ -1948,12 +1936,6 @@
           }
         }
       }
-    },
-    "Visited Landmarks" : {
-
-    },
-    "Want to See" : {
-
     },
     "What did you do? How was it?" : {
 

@@ -35,23 +35,15 @@ struct SceneListItemView: View {
 
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-            // Background image (from associated landmark if available)
-            if let firstLandmarkId = scene.associatedLandmarkIds.first,
-               let landmark = modelData.landmarksById[firstLandmarkId] {
-                Image(landmark.backgroundImageName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            } else {
-                // Fallback gradient
-                LinearGradient(
-                    gradient: Gradient(colors: [
-                        scene.status.color.opacity(0.6),
-                        scene.status.color
-                    ]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-            }
+            // Background gradient
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    scene.status.color.opacity(0.6),
+                    scene.status.color
+                ]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
 
             // Overlay with scene info
             VStack(alignment: .leading, spacing: 4) {

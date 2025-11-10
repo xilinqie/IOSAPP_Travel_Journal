@@ -132,27 +132,6 @@ struct PlannedSceneCardView: View {
                     .lineLimit(2)
             }
 
-            // Interested Landmarks
-            if !scene.associatedLandmarkIds.isEmpty {
-                let landmarks = modelData.landmarks(for: scene)
-                if !landmarks.isEmpty {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Want to See")
-                            .font(.caption)
-                            .fontWeight(.semibold)
-                            .foregroundStyle(.secondary)
-
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 12) {
-                                ForEach(landmarks) { landmark in
-                                    LandmarkMiniCard(landmark: landmark)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
             // Notes
             if !scene.notes.isEmpty {
                 HStack(alignment: .top, spacing: 8) {

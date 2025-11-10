@@ -70,7 +70,6 @@ class TravelScene: Hashable, Identifiable {
     var visits: [Visit] // Multiple visit records
     var plannedDate: Date?
     var notes: String
-    var associatedLandmarkIds: [Int]
     var photos: [ScenePhoto]
 
     init(
@@ -84,7 +83,6 @@ class TravelScene: Hashable, Identifiable {
         visits: [Visit] = [],
         plannedDate: Date? = nil,
         notes: String = "",
-        associatedLandmarkIds: [Int] = [],
         photos: [ScenePhoto] = []
     ) {
         self.id = id
@@ -97,7 +95,6 @@ class TravelScene: Hashable, Identifiable {
         self.visits = visits
         self.plannedDate = plannedDate
         self.notes = notes
-        self.associatedLandmarkIds = associatedLandmarkIds
         self.photos = photos
     }
 
@@ -183,8 +180,7 @@ extension TravelScene {
                     notes: "Quick business trip"
                 )
             ],
-            notes: "Love this city! Want to visit again.",
-            associatedLandmarkIds: [1016] // Mount Fuji
+            notes: "Love this city! Want to visit again."
         ),
         TravelScene(
             name: "Paris",
@@ -200,8 +196,7 @@ extension TravelScene {
                     notes: "Week-long vacation - Eiffel Tower at sunset was breathtaking"
                 )
             ],
-            notes: "Romantic city with amazing food and architecture",
-            associatedLandmarkIds: [1015] // Eiffel Tower
+            notes: "Romantic city with amazing food and architecture"
         ),
 
         // Planned Scenes
@@ -213,8 +208,7 @@ extension TravelScene {
             longitude: 151.2093,
             status: .planned,
             plannedDate: Date(timeIntervalSinceNow: 86400 * 60), // 60 days from now
-            notes: "Want to see Opera House and Bondi Beach",
-            associatedLandmarkIds: [1005] // Sydney Opera House
+            notes: "Want to see Opera House and Bondi Beach"
         ),
         TravelScene(
             name: "Machu Picchu",
@@ -224,8 +218,7 @@ extension TravelScene {
             longitude: -72.5450,
             status: .planned,
             plannedDate: Date(timeIntervalSinceNow: 86400 * 120), // 120 days from now
-            notes: "Need to book hiking permits in advance",
-            associatedLandmarkIds: [1014] // Machu Picchu
+            notes: "Need to book hiking permits in advance"
         )
     ]
 }

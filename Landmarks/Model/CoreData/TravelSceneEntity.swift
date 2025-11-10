@@ -21,7 +21,6 @@ public class TravelSceneEntity: NSManagedObject, Identifiable {
     @NSManaged public var visitDate: Date?
     @NSManaged public var plannedDate: Date?
     @NSManaged public var notes: String
-    @NSManaged public var associatedLandmarkIds: [Int]
     @NSManaged public var createdAt: Date
     @NSManaged public var updatedAt: Date
 
@@ -47,8 +46,7 @@ public class TravelSceneEntity: NSManagedObject, Identifiable {
             status: SceneStatus(rawValue: status) ?? .planned,
             visits: visits,
             plannedDate: plannedDate,
-            notes: notes,
-            associatedLandmarkIds: associatedLandmarkIds
+            notes: notes
         )
     }
 
@@ -77,7 +75,6 @@ public class TravelSceneEntity: NSManagedObject, Identifiable {
         entity.visitDate = scene.latestVisit?.startDate
         entity.plannedDate = scene.plannedDate
         entity.notes = scene.notes
-        entity.associatedLandmarkIds = scene.associatedLandmarkIds
         entity.updatedAt = Date()
 
         return entity

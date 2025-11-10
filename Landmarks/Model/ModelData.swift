@@ -232,10 +232,6 @@ class ModelData {
         }
     }
 
-    func landmarks(for scene: TravelScene) -> [Landmark] {
-        scene.associatedLandmarkIds.compactMap { landmarksById[$0] }
-    }
-
     // MARK: - Scene Set Management
 
     func loadSceneSets() {

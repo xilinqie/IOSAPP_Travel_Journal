@@ -153,28 +153,6 @@ struct SceneDetailView: View {
                     .padding(.horizontal)
                 }
 
-                // Associated Landmarks
-                let landmarks = modelData.landmarks(for: scene)
-                if !landmarks.isEmpty {
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text(scene.status == .visited ? "Landmarks Visited" : "Landmarks to See")
-                            .font(.headline)
-                            .padding(.horizontal)
-
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 16) {
-                                ForEach(landmarks) { landmark in
-                                    NavigationLink(value: landmark) {
-                                        LandmarkCardForScene(landmark: landmark)
-                                    }
-                                    .buttonStyle(.plain)
-                                }
-                            }
-                            .padding(.horizontal)
-                        }
-                    }
-                }
-
                 // Sets this scene belongs to
                 let sets = modelData.sets(for: scene)
                 if !sets.isEmpty {
