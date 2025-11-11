@@ -204,7 +204,7 @@ struct MapView: View {
 
 // MARK: - Map Control Button
 
-/// A glass-effect button for map controls
+/// A liquid glass-effect button for map controls
 struct MapControlButton: View {
     let icon: String
     let label: String
@@ -215,18 +215,53 @@ struct MapControlButton: View {
         Button(action: {
             action?()
         }) {
-            Image(systemName: icon)
-                .font(.system(size: 18))
-                .fontWeight(.medium)
-                .foregroundStyle(.primary)
-                .frame(width: 44, height: 44)
-                .background(.ultraThinMaterial)
-                .clipShape(Circle())
-                .shadow(color: .black.opacity(0.15), radius: 8, x: 0, y: 4)
-                .overlay(
-                    Circle()
-                        .strokeBorder(.white.opacity(0.2), lineWidth: 1)
-                )
+            ZStack {
+                // Outer glow layer
+                Circle()
+                    .fill(.ultraThinMaterial)
+                    .frame(width: 48, height: 48)
+                    .shadow(color: .black.opacity(0.1), radius: 20, x: 0, y: 10)
+
+                // Main glass layer
+                Circle()
+                    .fill(.regularMaterial)
+                    .frame(width: 44, height: 44)
+                    .overlay(
+                        // Inner highlight for glass effect
+                        Circle()
+                            .fill(
+                                LinearGradient(
+                                    colors: [
+                                        .white.opacity(0.25),
+                                        .white.opacity(0.05),
+                                        .clear
+                                    ],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                    )
+                    .overlay(
+                        // Glossy border
+                        Circle()
+                            .strokeBorder(
+                                LinearGradient(
+                                    colors: [
+                                        .white.opacity(0.4),
+                                        .white.opacity(0.1)
+                                    ],
+                                    startPoint: .top,
+                                    endPoint: .bottom
+                                ),
+                                lineWidth: 1.5
+                            )
+                    )
+
+                // Icon
+                Image(systemName: icon)
+                    .font(.system(size: 18, weight: .medium))
+                    .foregroundStyle(.primary)
+            }
         }
         .buttonStyle(.plain)
         .accessibilityLabel(label)

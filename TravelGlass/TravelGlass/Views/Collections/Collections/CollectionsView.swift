@@ -21,8 +21,8 @@ struct CollectionsView: View {
                     Spacer()
                 }
                 .padding(.leading, Constants.leadingContentInset)
-                
-                LandmarkHorizontalListView(landmarkList: modelData.favoritesCollection.landmarks)
+
+                LandmarkHorizontalListView(landmarkList: modelData.filteredFavoritesLandmarks)
                     .containerRelativeFrame(.vertical) { height, axis in
                         let proposedHeight = height * Constants.landmarkListPercentOfHeight
                         if proposedHeight > Constants.landmarkListMinimumHeight {

@@ -12,20 +12,26 @@ struct SetsView: View {
     @State private var showingAddSet = false
 
     var body: some View {
+        @Bindable var modelData = modelData
+
         List {
-            if modelData.sceneSets.isEmpty {
-                ContentUnavailableView {
-                    Label("No Sets Yet", systemImage: "folder.badge.plus")
-                } description: {
-                    Text("Create sets to organize your travel scenes into categories like \"Beach Destinations\", \"Historical Sites\", or \"Bucket List\".")
-                } actions: {
-                    Button("Create Your First Set") {
-                        showingAddSet = true
+            if modelData.filteredSceneSets.isEmpty {
+                if modelData.searchString.isEmpty {
+                    ContentUnavailableView {
+                        Label("No Sets Yet", systemImage: "folder.badge.plus")
+                    } description: {
+                        Text("Create sets to organize your travel scenes into categories like \"Beach Destinations\", \"Historical Sites\", or \"Bucket List\".")
+                    } actions: {
+                        Button("Create Your First Set") {
+                            showingAddSet = true
+                        }
+                        .buttonStyle(.borderedProminent)
                     }
-                    .buttonStyle(.borderedProminent)
+                } else {
+                    ContentUnavailableView.search
                 }
             } else {
-                ForEach(modelData.sceneSets) { set in
+                ForEach(modelData.filteredSceneSets) { set in
                     NavigationLink(value: set) {
                         SetRowView(set: set)
                     }

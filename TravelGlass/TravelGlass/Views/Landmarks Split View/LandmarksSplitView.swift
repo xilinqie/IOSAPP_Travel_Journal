@@ -25,6 +25,7 @@ struct LandmarksSplitView: View {
                     }
                 }
             }
+            .listStyle(.sidebar)
             .navigationDestination(for: NavigationOptions.self) { page in
                 NavigationStack(path: $modelData.path) {
                     page.viewForPage()

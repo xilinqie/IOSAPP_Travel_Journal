@@ -36,18 +36,93 @@ class ModelData {
     // Travel Scenes
     var travelScenes: [TravelScene] = []
     var visitedScenes: [TravelScene] {
-        travelScenes.filter { $0.status == .visited }.sorted {
+        let filtered = travelScenes.filter { $0.status == .visited }
+        let sorted = filtered.sorted {
             ($0.latestVisit?.startDate ?? Date.distantPast) > ($1.latestVisit?.startDate ?? Date.distantPast)
+        }
+
+        // Apply search filter
+        if searchString.isEmpty {
+            return sorted
+        } else {
+            return sorted.filter { scene in
+                scene.name.localizedCaseInsensitiveContains(searchString) ||
+                scene.country.localizedCaseInsensitiveContains(searchString) ||
+                scene.description.localizedCaseInsensitiveContains(searchString) ||
+                scene.notes.localizedCaseInsensitiveContains(searchString)
+            }
         }
     }
     var plannedScenes: [TravelScene] {
-        travelScenes.filter { $0.status == .planned }.sorted {
+        let filtered = travelScenes.filter { $0.status == .planned }
+        let sorted = filtered.sorted {
             ($0.plannedDate ?? Date.distantFuture) < ($1.plannedDate ?? Date.distantFuture)
+        }
+
+        // Apply search filter
+        if searchString.isEmpty {
+            return sorted
+        } else {
+            return sorted.filter { scene in
+                scene.name.localizedCaseInsensitiveContains(searchString) ||
+                scene.country.localizedCaseInsensitiveContains(searchString) ||
+                scene.description.localizedCaseInsensitiveContains(searchString) ||
+                scene.notes.localizedCaseInsensitiveContains(searchString)
+            }
         }
     }
 
     // Scene Sets
     var sceneSets: [SceneSet] = []
+
+    // Filtered scene sets based on search
+    var filteredSceneSets: [SceneSet] {
+        if searchString.isEmpty {
+            return sceneSets
+        } else {
+            return sceneSets.filter { set in
+                set.name.localizedCaseInsensitiveContains(searchString) ||
+                set.description.localizedCaseInsensitiveContains(searchString)
+            }
+        }
+    }
+
+    // Filtered landmarks based on search
+    var filteredLandmarks: [Landmark] {
+        if searchString.isEmpty {
+            return landmarks
+        } else {
+            return landmarks.filter { landmark in
+                String(localized: landmark.name).localizedCaseInsensitiveContains(searchString) ||
+                landmark.continent.localizedCaseInsensitiveContains(searchString)
+            }
+        }
+    }
+
+    // Filtered user collections based on search
+    var filteredUserCollections: [LandmarkCollection] {
+        if searchString.isEmpty {
+            return userCollections
+        } else {
+            return userCollections.filter { collection in
+                collection.name.localizedCaseInsensitiveContains(searchString) ||
+                collection.description.localizedCaseInsensitiveContains(searchString)
+            }
+        }
+    }
+
+    // Filtered favorites landmarks based on search
+    var filteredFavoritesLandmarks: [Landmark] {
+        let favorites = favoritesCollection?.landmarks ?? []
+        if searchString.isEmpty {
+            return favorites
+        } else {
+            return favorites.filter { landmark in
+                String(localized: landmark.name).localizedCaseInsensitiveContains(searchString) ||
+                landmark.continent.localizedCaseInsensitiveContains(searchString)
+            }
+        }
+    }
 
     var searchString: String = ""
     var path: NavigationPath = NavigationPath() {

@@ -11,6 +11,7 @@ import SwiftUI
 struct LandmarksView: View {
     @Environment(ModelData.self) private var modelData
     @Environment(\.isSearching) private var isSearching
+    @State private var scrollOffset: CGFloat = 0
 
     var body: some View {
         @Bindable var modelData = modelData
@@ -89,9 +90,15 @@ struct LandmarksView: View {
             }
         }
         .flexibleHeaderScrollView()
+        .onScrollGeometryChange(for: CGFloat.self) { geometry in
+            geometry.contentOffset.y
+        } action: { _, newOffset in
+            scrollOffset = newOffset
+        }
         .ignoresSafeArea(.keyboard)
         .ignoresSafeArea(edges: .top)
         .toolbar(removing: .title)
+        .toolbarBackground(scrollOffset < -50 ? .visible : .hidden, for: .navigationBar)
         .navigationDestination(for: TravelScene.self) { scene in
             SceneDetailView(scene: scene)
         }
