@@ -1,17 +1,25 @@
-//
-//  TravelGlassApp.swift
-//  TravelGlass
-//
-//  Created by Eric Wang on 11/10/2025.
-//
+/*
+See the LICENSE.txt file for this sample's licensing information.
+
+Abstract:
+The main app entry point for TravelGlass.
+*/
 
 import SwiftUI
 
 @main
 struct TravelGlassApp: App {
+    @State private var modelData = ModelData()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LandmarksSplitView()
+                .environment(modelData)
+                .onGeometryChange(for: CGSize.self) { geometry in
+                    geometry.size
+                } action: { newSize in
+                    modelData.windowSize = newSize
+                }
         }
     }
 }
